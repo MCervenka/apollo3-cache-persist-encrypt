@@ -75,10 +75,10 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "@apollo/client": "^3.2.5"
+    "@apollo/client": "3.4.16"
   },
   "devDependencies": {
-    "@apollo/client": "3.2.4",
+    "@apollo/client": "3.4.16",
     "@types/jest": "24.9.1",
     "@types/node": "12.11.5",
     "@types/react-native": "0.63.37",
