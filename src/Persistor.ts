@@ -1,6 +1,7 @@
 import Log from './Log';
 import Storage from './Storage';
 import Cache from './Cache';
+import Encryptor from './Encryptor';
 
 import { ApolloPersistOptions, PersistenceMapperFunction } from './types';
 
@@ -8,24 +9,23 @@ export interface PersistorConfig<T> {
   log: Log<T>;
   cache: Cache<T>;
   storage: Storage<T>;
+  encryptor?: Encryptor<T>;
 }
 
 export default class Persistor<T> {
   log: Log<T>;
   cache: Cache<T>;
   storage: Storage<T>;
+  encryptor?: Encryptor<T>;
   maxSize?: number;
   paused: boolean;
   persistenceMapper?: PersistenceMapperFunction;
 
   constructor(
-    { log, cache, storage }: PersistorConfig<T>,
+    { log, cache, storage, encryptor }: PersistorConfig<T>,
     options: ApolloPersistOptions<T>,
   ) {
-    const {
-      maxSize = 1024 * 1024,
-      persistenceMapper,
-    } = options;
+    const { maxSize = 1024 * 1024, persistenceMapper } = options;
 
     this.log = log;
     this.cache = cache;
@@ -38,6 +38,9 @@ export default class Persistor<T> {
 
     if (maxSize) {
       this.maxSize = maxSize;
+    }
+    if (encryptor) {
+      this.encryptor = encryptor;
     }
   }
 
@@ -63,8 +66,11 @@ export default class Persistor<T> {
       if (this.paused) {
         return;
       }
+      const encryptedData = this.encryptor
+        ? this.encryptor.encrypt(data)
+        : data;
 
-      await this.storage.write(data);
+      await this.storage.write(encryptedData);
 
       this.log.info(
         typeof data === 'string'
@@ -82,7 +88,20 @@ export default class Persistor<T> {
       const data = await this.storage.read();
 
       if (data != null) {
-        await this.cache.restore(data);
+        try {
+          const decryptedData = this.encryptor
+            ? this.encryptor.decrypt(data)
+            : data;
+
+          await this.cache.restore(decryptedData);
+        } catch (error) {
+          if (this.encryptor.onError) {
+            this.encryptor.onError(error);
+            return;
+          }
+
+          throw error;
+        }
 
         this.log.info(
           typeof data === 'string'

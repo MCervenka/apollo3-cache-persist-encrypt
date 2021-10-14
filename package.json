@@ -1,5 +1,5 @@
 {
-  "name": "apollo3-cache-persist",
+  "name": "apollo3-cache-persist-encrypt",
   "version": "0.13.0",
   "description": "Simple persistence for all Apollo cache implementations",
   "author": "James Reggio <james.reggio@gmail.com>",
@@ -14,10 +14,10 @@
   "typings": "./lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/apollographql/apollo-cache-persist.git"
+    "url": "https://github.com/MCervenka/apollo3-cache-persist-encrypt"
   },
-  "homepage": "https://github.com/apollographql/apollo-cache-persist#readme",
-  "bugs": "https://github.com/apollographql/apollo-cache-persist/issues",
+  "homepage": "https://github.com/MCervenka/apollo3-cache-persist-encrypt#readme",
+  "bugs": "https://github.com/MCervenka/apollo3-cache-persist-encrypt/issues",
   "scripts": {
     "version": "yarn run changelog && git add CHANGELOG.md",
     "postversion": "yarn run publish:git && yarn run publish:npm",
@@ -75,9 +75,11 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "@apollo/client": "^3.2.5"
+    "@apollo/client": "^3.2.5",
+     "crypto-js": "^3.1.9-1"
   },
   "devDependencies": {
+    "@types/crypto-js": "^3.1.43",
     "@apollo/client": "3.2.4",
     "@types/jest": "24.9.1",
     "@types/node": "12.11.5",

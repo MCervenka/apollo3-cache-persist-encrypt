@@ -1,4 +1,5 @@
 import { ApolloCache } from '@apollo/client/core';
+import { CachePersistor } from '..';
 
 export type LogLevel = 'log' | 'warn' | 'error';
 
@@ -17,7 +18,15 @@ export interface PersistentStorage<T> {
   setItem: (key: string, value: T) => Promise<T> | Promise<void> | void | T;
   removeItem: (key: string) => Promise<T> | Promise<void> | void;
 }
+export type OnEncryptionError<T> = (
+  error: Error,
+  persistor: CachePersistor<T>,
+) => void;
 
+export interface EncryptOptions<T> {
+  onError?: OnEncryptionError<T>;
+  secretKey: string;
+}
 type StorageType<T, TSerialize extends boolean> = TSerialize extends true
   ? PersistentStorage<string>
   : PersistentStorage<T>;
@@ -35,4 +44,5 @@ export interface ApolloPersistOptions<
   maxSize?: number | false;
   persistenceMapper?: PersistenceMapperFunction;
   debug?: boolean;
+  encrypt?: EncryptOptions<TSerialized>;
 }

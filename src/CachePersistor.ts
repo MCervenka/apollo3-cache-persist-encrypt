@@ -3,6 +3,7 @@ import Cache from './Cache';
 import Storage from './Storage';
 import Persistor from './Persistor';
 import Trigger from './Trigger';
+import Encryptor from './Encryptor';
 
 import { ApolloPersistOptions, LogLine } from './types';
 
@@ -17,21 +18,27 @@ export default class CachePersistor<T> {
     if (!options.cache) {
       throw new Error(
         'In order to persist your Apollo Cache, you need to pass in a cache. ' +
-          'Please see https://www.apollographql.com/docs/react/basics/caching.html for our default InMemoryCache.'
+          'Please see https://www.apollographql.com/docs/react/basics/caching.html for our default InMemoryCache.',
       );
     }
 
     if (!options.storage) {
       throw new Error(
         'In order to persist your Apollo Cache, you need to pass in an underlying storage provider. ' +
-          'Please see https://github.com/apollographql/apollo-cache-persist#storage-providers'
+          'Please see https://github.com/apollographql/apollo-cache-persist#storage-providers',
       );
     }
+    const encryptor = options.encrypt
+      ? new Encryptor<T>(this, options.encrypt)
+      : undefined;
 
     const log = new Log(options);
     const cache = new Cache(options);
     const storage = new Storage(options);
-    const persistor = new Persistor({ log, cache, storage }, options);
+    const persistor = new Persistor(
+      { log, cache, storage, encryptor },
+      options,
+    );
     const trigger = new Trigger({ log, persistor }, options);
 
     this.log = log;
