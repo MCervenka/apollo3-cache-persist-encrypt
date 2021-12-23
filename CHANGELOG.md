@@ -1,3 +1,7 @@
+## [0.15.1](https://github.com/MCervenka/apollo3-cache-persist-encrypt/compare/v0.15.0...v0.15.1) (2021-12-23)
+
+
+
 # [0.15.0](https://github.com/MCervenka/apollo3-cache-persist-encrypt/compare/v0.14.1...v0.15.0) (2021-12-23)
 
 
