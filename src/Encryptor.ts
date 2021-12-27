@@ -44,7 +44,10 @@ export default class Encryptor<T> {
     const result: { [key: string]: string } = {};
     const parsedData = JSON.parse(data as string)['ROOT_QUERY'];
     Object.keys(parsedData).forEach(el => {
-      const bytes = CryptoJS.AES.decrypt(parsedData[el], this.secretKey);
+      const bytes = CryptoJS.AES.decrypt(
+        JSON.stringify(parsedData[el]),
+        this.secretKey,
+      );
       result[el] = bytes.toString(CryptoJS.enc.Utf8);
     });
     return JSON.stringify({ ROOT_QUERY: result });
