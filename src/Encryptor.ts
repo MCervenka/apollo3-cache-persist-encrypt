@@ -25,15 +25,25 @@ export default class Encryptor<T> {
     if (!this.encryptByKey) {
       return CryptoJS.AES.encrypt(data as string, this.secretKey).toString();
     }
-    const parsedData = JSON.parse(data as string)['ROOT_QUERY'];
-    const result: { [key: string]: string } = {};
+    const parsedCache = JSON.parse(data as string);
+    const parsedData = parsedCache['ROOT_QUERY'];
+    const result: { [key: string]: any } = { ROOT_QUERY: {} };
     Object.keys(parsedData).forEach(el => {
-      result[el] = CryptoJS.AES.encrypt(
+      result['ROOT_QUERY'][el] = CryptoJS.AES.encrypt(
         JSON.stringify(parsedData[el]),
         this.secretKey,
       ).toString();
     });
-    return JSON.stringify({ ROOT_QUERY: result });
+    Object.keys(parsedCache).forEach(el => {
+      if (el !== 'ROOT_QUERY') {
+        result[el] = CryptoJS.AES.encrypt(
+          JSON.stringify(parsedCache[el]),
+          this.secretKey,
+        ).toString();
+      }
+    });
+
+    return JSON.stringify(result);
   }
 
   decrypt(data: PersistedData<T>): PersistedData<T> {
@@ -41,13 +51,24 @@ export default class Encryptor<T> {
       const bytes = CryptoJS.AES.decrypt(data as string, this.secretKey);
       return bytes.toString(CryptoJS.enc.Utf8);
     }
-    const result: { [key: string]: string } = {};
-    const parsedData = JSON.parse(data as string)['ROOT_QUERY'];
+    const result: { [key: string]: any } = { ROOT_QUERY: {} };
+    const parsedCache = JSON.parse(data as string);
+    const parsedData = parsedCache['ROOT_QUERY'];
     Object.keys(parsedData).forEach(el => {
       const bytes = CryptoJS.AES.decrypt(parsedData[el], this.secretKey);
-      result[el] = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+      result['ROOT_QUERY'][el] = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
     });
-    return JSON.stringify({ ROOT_QUERY: result });
+    Object.keys(parsedCache).forEach(el => {
+      if (el !== 'ROOT_QUERY') {
+        try {
+          const bytes = CryptoJS.AES.decrypt(parsedCache[el], this.secretKey);
+          result[el] = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+        } catch (e) {
+          console.log('parsedCache other keys', e);
+        }
+      }
+    });
+    return JSON.stringify(result);
   }
 
   onError(error: Error): void {
