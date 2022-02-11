@@ -27,6 +27,7 @@ export interface EncryptOptions<T> {
   onError?: OnEncryptionError<T>;
   encryptByKey?: boolean;
   secretKey: string;
+  whiteList?: string[];
 }
 type StorageType<T, TSerialize extends boolean> = TSerialize extends true
   ? PersistentStorage<string>
