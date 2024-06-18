@@ -25,7 +25,16 @@ export type OnEncryptionError<T> = (
 
 export interface EncryptOptions<T> {
   onError?: OnEncryptionError<T>;
+  /**
+   * if the queries should be encrypted by query name, otherwise whole cache is going to encrypted at once
+   */
+  encryptByKey?: boolean;
   secretKey: string;
+  /**
+   *  only queries on the whitelist (as named on graphql server) are going to get encrypted during persisting
+   *  if this field is empty then all queries are going to be encrypted. encryptByKey needs to be true
+   */
+  whiteList?: string[];
 }
 type StorageType<T, TSerialize extends boolean> = TSerialize extends true
   ? PersistentStorage<string>

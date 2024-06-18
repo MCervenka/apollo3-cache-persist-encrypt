@@ -1,3 +1,7 @@
+This library is based on apollo3-cache-persist. It have added option to use encryption during persistance. This solution was taken from apollo-cache-persist-encrypt, but it was renewed for apollo3. There was also added option to encryptByKey (here it is good to write your own persisting function). And to use white list for encryption.
+
+More info on encrypting by key [Encrypting by key](./docs/encrypt-by-key.md)
+
 # apollo3-cache-persist [![npm version](https://badge.fury.io/js/apollo3-cache-persist.svg)](https://badge.fury.io/js/apollo3-cache-persist) [![build status](https://travis-ci.org/apollographql/apollo-cache-persist.svg?branch=master)](https://travis-ci.org/apollographql/apollo-cache-persist) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 Simple persistence for all Apollo Client 3.0 cache implementations, including
@@ -7,7 +11,6 @@ Supports web and React Native. [See all storage providers.](./docs/storage-provi
 
 [0]: https://github.com/apollographql/apollo-client/tree/master/src/cache/inmemory
 [1]: https://github.com/convoyinc/apollo-cache-hermes
-
 
 - [Basic Usage](#basic-usage)
   - [React Native](#react-native)

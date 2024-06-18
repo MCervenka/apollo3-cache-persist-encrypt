@@ -1,3 +1,52 @@
+## [0.16.1](https://github.com/MCervenka/apollo3-cache-persist-encrypt/compare/v0.16.0...v0.16.1) (2022-02-22)
+
+
+
+# [0.16.0](https://github.com/MCervenka/apollo3-cache-persist-encrypt/compare/v0.15.7...v0.16.0) (2022-02-11)
+
+
+
+## [0.15.7](https://github.com/MCervenka/apollo3-cache-persist-encrypt/compare/v0.15.6...v0.15.7) (2022-01-10)
+
+
+
+## [0.15.6](https://github.com/MCervenka/apollo3-cache-persist-encrypt/compare/v0.15.5...v0.15.6) (2022-01-03)
+
+
+### Reverts
+
+* Revert "small fix" ([af73bde](https://github.com/MCervenka/apollo3-cache-persist-encrypt/commit/af73bde918a62b18103637f1aea43a2a83ed3fad))
+
+
+
+## [0.15.5](https://github.com/MCervenka/apollo3-cache-persist-encrypt/compare/v0.15.4...v0.15.5) (2021-12-27)
+
+
+
+## [0.15.4](https://github.com/MCervenka/apollo3-cache-persist-encrypt/compare/v0.15.3...v0.15.4) (2021-12-23)
+
+
+
+## [0.15.3](https://github.com/MCervenka/apollo3-cache-persist-encrypt/compare/v0.15.2...v0.15.3) (2021-12-23)
+
+
+
+## [0.15.2](https://github.com/MCervenka/apollo3-cache-persist-encrypt/compare/v0.15.1...v0.15.2) (2021-12-23)
+
+
+
+## [0.15.1](https://github.com/MCervenka/apollo3-cache-persist-encrypt/compare/v0.15.0...v0.15.1) (2021-12-23)
+
+
+
+# [0.15.0](https://github.com/MCervenka/apollo3-cache-persist-encrypt/compare/v0.14.1...v0.15.0) (2021-12-23)
+
+
+
+## [0.14.1](https://github.com/MCervenka/apollo3-cache-persist-encrypt/compare/v0.14.0...v0.14.1) (2021-12-23)
+
+
+
 # [0.14.0](https://github.com/MCervenka/apollo3-cache-persist-encrypt/compare/v0.13.0...v0.14.0) (2021-10-14)
 
 
